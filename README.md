@@ -2,6 +2,10 @@
 
 A Model Context Protocol (MCP) server for working with Building Information Modeling (BIM) files. This server provides tools to convert IFC files to fragment format, load fragments, and query BIM data by category.
 
+<a href="https://glama.ai/mcp/servers/@helenkwok/openbim-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@helenkwok/openbim-mcp/badge" alt="Fragment Server MCP server" />
+</a>
+
 ## Features
 
 - **IFC to Fragment Conversion**: Convert Industry Foundation Classes (IFC) files to the open and  efficient fragment format
