@@ -36,7 +36,7 @@ export const fetchCategoriesWithGeometry = (
   const categoriesWithCount = categories.map((category) => {
     const items = fragments.getItemsOfCategories([new RegExp(category)])
     const ids = Object.values(items)
-      .flat()
+      .flatMap((arr) => arr)
       .filter((id) => id !== undefined && id !== null)
     const count = ids.filter((id) => geometrySet.has(id)).length
     return { category, count }
