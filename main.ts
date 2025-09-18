@@ -3,7 +3,7 @@ import { z } from 'zod'
 import * as FRAGS from '@thatopen/fragments'
 import fs from 'fs'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import { convertIfcToFragment, fetchElementsOfCategory, loadFragments } from './fragements'
+import { convertIfcToFragment, fetchCategoriesWithGeometry, fetchElementsOfCategory, loadFragments } from './fragements'
 
 let fragments: FRAGS.SingleThreadedFragmentsModel
 
@@ -52,7 +52,9 @@ server.tool(
           type: 'text',
           text: `Converted IFC file to .frag format. Output saved to ${outputPath}. Model contains ${
             model.getItemsWithGeometry().length
-          } items.`,
+          } items with geometry: ${JSON.stringify(
+            fetchCategoriesWithGeometry(fragments)
+          )}`,
         },
       ],
     }
@@ -88,8 +90,8 @@ server.tool(
       content: [
         {
           type: 'text',
-          text: `Loaded fragments from ${filePath}. Loaded ${JSON.stringify(
-            fragments.getItemsWithGeometry()
+          text: `Loaded fragments from ${filePath}. Loaded ${fragments.getItemsWithGeometry().length} items with geometry: ${JSON.stringify(
+            fetchCategoriesWithGeometry(fragments)
           )}`,
         },
       ],

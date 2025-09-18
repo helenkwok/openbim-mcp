@@ -27,6 +27,23 @@ export const loadFragments = async (filePath: string) => {
   return fragments
 }
 
+export const fetchCategoriesWithGeometry = (
+  fragments: FRAGS.SingleThreadedFragmentsModel
+) => {
+  const categories = fragments.getCategories()
+  const fragmentsWithGeometry = fragments.getItemsWithGeometry()
+
+  const categoriesWithCount = categories.map((category) => {
+    const items = fragments.getItemsOfCategories([new RegExp(category)])
+    const ids = Object.values(items)
+      .flat()
+      .filter((id) => id !== undefined && id !== null)
+    const count = ids.filter((id) => fragmentsWithGeometry.includes(id)).length
+    return { category, count }
+  })
+  return categoriesWithCount.filter((c) => c.count > 0)
+}
+
 export const fetchElementsOfCategory = (
   fragments: FRAGS.SingleThreadedFragmentsModel,
   category: string,
