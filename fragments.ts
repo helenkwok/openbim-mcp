@@ -46,7 +46,7 @@ export const fetchCategoriesWithGeometry = (
   return categoriesWithCount.filter((c) => c.count > 0);
 }
 
-// Update fetchElementsOfCategory to use safeRegExp instead of new RegExp
+// Fetches elements of a given category from the fragments model using a safe regular expression.
 export const fetchElementsOfCategory = (
   fragments: FRAGS.SingleThreadedFragmentsModel,
   category: string,
