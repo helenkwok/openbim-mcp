@@ -3,7 +3,7 @@ import { z } from 'zod'
 import * as FRAGS from '@thatopen/fragments'
 import fs from 'fs'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import { convertIfcToFragment, fetchCategoriesWithGeometry, fetchElementsOfCategory, loadFragments } from './fragements'
+import { convertIfcToFragment, fetchCategoriesWithGeometry, fetchElementsOfCategory, loadFragments } from './fragments'
 
 let fragments: FRAGS.SingleThreadedFragmentsModel
 
