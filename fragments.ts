@@ -28,7 +28,7 @@ export const loadFragments = async (filePath: string) => {
   return fragments
 }
 
-// Update fetchCategoriesWithGeometry to use safeRegExp
+// Returns categories that have associated geometry, along with their counts.
 export const fetchCategoriesWithGeometry = (
   fragments: FRAGS.SingleThreadedFragmentsModel
 ) => {
