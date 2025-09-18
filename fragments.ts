@@ -1,5 +1,6 @@
-import * as FRAGS from '@thatopen/fragments'
+import * as FRAGS from '@thatopen/fragments';
 import fs from 'fs'
+import { safeRegExp } from './utils';
 
 export const convertIfcToFragment = async (
   inputPath: string,
@@ -27,35 +28,37 @@ export const loadFragments = async (filePath: string) => {
   return fragments
 }
 
+// Update fetchCategoriesWithGeometry to use safeRegExp
 export const fetchCategoriesWithGeometry = (
   fragments: FRAGS.SingleThreadedFragmentsModel
 ) => {
-  const categories = fragments.getCategories()
-  const fragmentsWithGeometry = fragments.getItemsWithGeometry()
-  const geometrySet = new Set(fragmentsWithGeometry)
+  const categories = fragments.getCategories();
+  const fragmentsWithGeometry = fragments.getItemsWithGeometry();
+  const geometrySet = new Set(fragmentsWithGeometry);
   const categoriesWithCount = categories.map((category) => {
-    const items = fragments.getItemsOfCategories([new RegExp(category)])
+    const items = fragments.getItemsOfCategories([safeRegExp(category)]);
     const ids = Object.values(items)
       .flatMap((arr) => arr)
-      .filter((id) => id !== undefined && id !== null)
-    const count = ids.filter((id) => geometrySet.has(id)).length
-    return { category, count }
-  })
-  return categoriesWithCount.filter((c) => c.count > 0)
+      .filter((id) => id !== undefined && id !== null);
+    const count = ids.filter((id) => geometrySet.has(id)).length;
+    return { category, count };
+  });
+  return categoriesWithCount.filter((c) => c.count > 0);
 }
 
+// Update fetchElementsOfCategory to use safeRegExp instead of new RegExp
 export const fetchElementsOfCategory = (
   fragments: FRAGS.SingleThreadedFragmentsModel,
   category: string,
   config: Partial<FRAGS.ItemsDataConfig>
 ) => {
   const elementsOfCategory = fragments.getItemsOfCategories([
-    new RegExp(category),
-  ])
+    safeRegExp(category),
+  ]);
   const ids = Object.values(elementsOfCategory)
     .flat()
-    .filter((id) => id !== undefined && id !== null)
-  const itemsData = fragments.getItemsData(ids, config)
+    .filter((id) => id !== undefined && id !== null);
+  const itemsData = fragments.getItemsData(ids, config);
 
-  return itemsData
-}
+  return itemsData;
+};
