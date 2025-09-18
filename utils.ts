@@ -4,6 +4,7 @@ export const safeRegExp = (pattern: string) => {
   try {
     return new RegExp(escapeRegExp(pattern));
   } catch {
+    // Intentionally return a regex that matches nothing as a safe fallback
     return /$^/;
   }
 };
